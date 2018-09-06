@@ -7,29 +7,29 @@ import List from './components/List'
 import DetailsScreen from './components/Details'
 
 const MapStack = createStackNavigator({
-  Home: { screen: Map },
+  Map: { screen: Map },
   Details: { screen: DetailsScreen },
 });
 
 const ListStack = createStackNavigator({
-  Settings: { screen: List },
+  Comps: { screen: List },
   Details: { screen: DetailsScreen },
 });
 
 export default createBottomTabNavigator(
   {
-    Home: { screen: MapStack },
-    Settings: { screen: ListStack },
+    Map: { screen: MapStack },
+    Comps: { screen: ListStack },
   },
   {
     navigationOptions: ({ navigation }) => ({
       tabBarIcon: ({ focused, tintColor }) => {
         const { routeName } = navigation.state;
         let iconName;
-        if (routeName === 'Home') {
-          iconName = `ios-information-circle${focused ? '' : '-outline'}`;
-        } else if (routeName === 'Settings') {
-          iconName = `ios-options${focused ? '' : '-outline'}`;
+        if (routeName === 'Map') {
+          iconName = `ios-compass${focused ? '' : '-outline'}`;
+        } else if (routeName === 'Comps') {
+          iconName = `ios-list-box${focused ? '' : '-outline'}`;
         }
 
         // You can return any component that you like here! We usually use an

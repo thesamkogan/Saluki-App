@@ -7,8 +7,8 @@ export default class List extends React.Component {
       <View style={{ flex: 1, justifyContent: 'center', alignItems: 'center' }}>
         <Text>List!</Text>
         <Button
-          title="Go to Settings"
-          onPress={() => this.props.navigation.navigate('Settings')}
+          title="Go to Map"
+          onPress={() => this.props.navigation.navigate('Map')}
         />
         <Button
           title="Go to Details"
