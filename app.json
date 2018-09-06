@@ -1,0 +1,15 @@
+{
+  "expo": {
+   "name": "salukiapp",
+   "icon": "./assets/icon.png",
+   "version": "1.0.0",
+   "slug": "Saluki-App",
+   "sdkVersion": "27.0.0",
+   "ios": {
+     "bundleIdentifier": "com.reactcode.salukiapp"
+   },
+   "android": {
+     "package": "com.reactcode.salukiapp"
+   }
+  }
+}
