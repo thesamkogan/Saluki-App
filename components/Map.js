@@ -4,7 +4,7 @@ import {MapView} from 'expo'
 import axios from 'axios'
 // import XMLParser from 'react-xml-parser'
 
-
+var TOKEN = process.env.API_KEY;
 
 export default class App extends React.Component {
   constructor() {
@@ -40,7 +40,7 @@ export default class App extends React.Component {
     console.log("oops")
     try {
       let response = await axios.get(
-        'https://www.zillow.com/webservice/GetRegionChildren.htm?zws-id=X1-ZWz1gmui57kruz_3if65&state=il&city=chicago&childtype=neighborhood'
+        `https://www.zillow.com/webservice/GetRegionChildren.htm?${TOKEN}&state=il&city=chicago&childtype=neighborhood`
       );
       // let xml = new XMLParser().parseFromString(response)
       console.log(typeof response)
