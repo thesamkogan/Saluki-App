@@ -1,23 +1,34 @@
 import React from 'react';
 import { Button, Text, View, StyleSheet } from 'react-native';
 import {MapView} from 'expo'
+import axios from 'axios'
+// import XMLParser from 'react-xml-parser'
 
-// Mapbox.setAccessToken('pk.eyJ1Ijoic2FtdWVsa29nYW4iLCJhIjoiY2plenUzcWl1MGU1YTJxcW9taXIwNDZvbiJ9.1Qc8pFKMtJc9ngRunOw1Fg');
+
 
 export default class App extends React.Component {
   constructor() {
     super()
-    this.state = {}
+    this.state = {
+      region: {
+          latitude: 37.7882,
+          longitude: -122.432,
+          latitudeDelta: 0.0922,
+          longitudeDelta: 0.0421,
+        },
+    }
   }
   componentDidMount() {
     navigator.geolocation.getCurrentPosition(
        (position) => {
-         console.log("wokeeey");
          console.log(position);
-         this.setState({
-           latitude: position.coords.latitude,
-           longitude: position.coords.longitude,
-           error: null,
+         this.setState({ region: {
+            latitude: position.coords.latitude,
+            longitude: position.coords.longitude,
+            latitudeDelta: 0.0922,
+            longitudeDelta: 0.0421,
+            error: null,
+          }
          });
        },
        (error) => this.setState({ error: error.message }),
@@ -25,40 +36,53 @@ export default class App extends React.Component {
      );
    }
 
-   getInitialState() {
-    return {
-      region: {
-        latitude: 37.78825,
-        longitude: -122.4324,
-        latitudeDelta: 0.0922,
-        longitudeDelta: 0.0421,
-      },
-    };
+   async getData () {
+    console.log("oops")
+    try {
+      let response = await axios.get(
+        'https://www.zillow.com/webservice/GetRegionChildren.htm?zws-id=X1-ZWz1gmui57kruz_3if65&state=il&city=chicago&childtype=neighborhood'
+      );
+      // let xml = new XMLParser().parseFromString(response)
+      console.log(typeof response)
+      // return xml
+  } catch (error) {
+    console.error(error);
   }
+}
 
-  onRegionChange(region) {
-    this.setState({ region });
-  }
+
+    // fetch('https://www.zillow.com/webservice/GetRegionChildren.htm?zws-id=X1-ZWz1gmui57kruz_3if65&state=il&city=chicago&childtype=neighborhood.json')
+    // .then(res => {
+    //   let xml = new XMLParser().parseFromString(res)
+    //   console.log(xml)
+    // })
+  //  }
 
   render() {
+    const {latitude, longitude} = this.state
     return (
       <MapView
+        style={styles.map}
         region={this.state.region}
         onRegionChange={this.onRegionChange}
+
       >
+      {!!this.state.region.latitude && !!this.state.region.longitude && <MapView.Marker
+        coordinate={{"latitude":this.state.region.latitude,"longitude":this.state.region.longitude}}
+        title={"Your Location"}
+      />}
+
+      <Button
+      style={{ position: 'absolute', top:30, bottom: 50 }}
+      title='Get'
+      onPress={this.getData}
+      >Get</Button>
       </MapView>
     );
   }
 }
 
-
-
 const styles = StyleSheet.create({
-  container: {
-    flex: 1,
-    justifyContent: 'center',
-    alignItems: 'center'
-  },
   map: {
     position: 'absolute',
     top: 0,
