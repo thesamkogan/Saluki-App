@@ -16,10 +16,16 @@ const ListStack = createStackNavigator({
   Details: { screen: DetailsScreen },
 });
 
+const DataStack = createStackNavigator({
+  Data: { screen: List },
+  Details: { screen: DetailsScreen },
+});
+
 export default createBottomTabNavigator(
   {
     Map: { screen: MapStack },
     Comps: { screen: ListStack },
+    Data: { screen: DataStack }
   },
   {
     navigationOptions: ({ navigation }) => ({
@@ -30,6 +36,8 @@ export default createBottomTabNavigator(
           iconName = `ios-compass${focused ? '' : '-outline'}`;
         } else if (routeName === 'Comps') {
           iconName = `ios-list-box${focused ? '' : '-outline'}`;
+        } else if (routeName === 'Data') {
+          iconName = `ios-trending-up${focused ? '' : '-outline'}`;
         }
 
         // You can return any component that you like here! We usually use an
