@@ -3,8 +3,9 @@ import { Button, Text, View, StyleSheet } from 'react-native';
 import {MapView} from 'expo'
 import axios from 'axios'
 // import XMLParser from 'react-xml-parser'
+import REACT_APP_API_KEY from '../secrets'
 
-var TOKEN = process.env.REACT_APP_API_KEY;
+var TOKEN = REACT_APP_API_KEY;
 
 export default class App extends React.Component {
   constructor() {
@@ -41,10 +42,11 @@ export default class App extends React.Component {
     console.log("oops")
     try {
       let response = await axios.get(
-        `https://www.zillow.com/webservice/GetRegionChildren.htm?${TOKEN}&state=il&city=chicago&childtype=neighborhood`
+        `http://www.zillow.com/webservice/GetRegionChildren.htm?zws-id=X1-ZWz1gmui57kruz_3if65&state=il&city=chicago&childtype=neighborhood
+        `
       );
       // let xml = new XMLParser().parseFromString(response)
-      // console.log(response)
+      console.log(response)
       // return xml
   } catch (error) {
     console.error(error);
